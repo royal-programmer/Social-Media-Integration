@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+//        No Actionbar
         Utils.blackIconStatusBar(this@MainActivity, R.color.light_background)
 
         img_logo = findViewById(R.id.sparks_logo)

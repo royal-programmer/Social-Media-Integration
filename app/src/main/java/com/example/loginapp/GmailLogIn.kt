@@ -40,15 +40,15 @@ class GmailLogIn : AppCompatActivity() {
 
         val acc_info = GoogleSignIn.getLastSignedInAccount(this@GmailLogIn)
         if (acc_info != null) {
-            name_google?.text = acc_info.displayName
-            email_google?.text = acc_info.email
+            name_google?.text = acc_info.displayName // Getting name
+            email_google?.text = acc_info.email // Getting email id
             profile_url_google = (if (acc_info.photoUrl != null) {
                 acc_info.photoUrl
             } else {
                 "null"
             }).toString()
         }
-        Picasso.get().load(profile_url_google).placeholder(R.drawable.profile).into(profile_google)
+        Picasso.get().load(profile_url_google).placeholder(R.drawable.profile).into(profile_google) // Getting Profile pic
 
         signOut_btn_google?.setOnClickListener(View.OnClickListener { googleSignOut() })
 
@@ -56,6 +56,7 @@ class GmailLogIn : AppCompatActivity() {
         google_signout_button.setOnClickListener { googleSignOut() }
     }
 
+//    Log out function Google
     fun googleSignOut() {
         var fetchmail = (GoogleSignIn.getLastSignedInAccount(this@GmailLogIn))?.email
         Toast.makeText(applicationContext, "You logged out of \n $fetchmail", Toast.LENGTH_SHORT)

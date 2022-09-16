@@ -51,16 +51,17 @@ class FaceBookLogIn : AppCompatActivity() {
             accessToken
         ) { `object`, response ->
             // Application code
-            name_facebook?.text = `object`.getString("name")
+            name_facebook?.text = `object`.getString("name") //Getting name
             profile_url_facebook = `object`.getJSONObject("picture")
                 .getJSONObject("data")
                 .getString("url")
             if (profile_url_facebook != null) {
-                Picasso.get().load(profile_url_facebook).placeholder(R.drawable.profile)
+                Picasso.get().load(profile_url_facebook)
+                    .placeholder(R.drawable.profile) // Getting profile pic
                     .into(profile_facebook)
             }
             if (`object`.has("email")) {
-                email_facebook?.text = `object`.getString("email")
+                email_facebook?.text = `object`.getString("email") // Getting email id
             } else {
                 email_facebook?.text = "Email not found"
             }
@@ -72,23 +73,4 @@ class FaceBookLogIn : AppCompatActivity() {
         request.parameters = parameters
         request.executeAsync()
     }
-
-
-//    var accessTokenTracker: AccessTokenTracker = object : AccessTokenTracker() {
-//        override fun onCurrentAccessTokenChanged(
-//            oldAccessToken: AccessToken,
-//            currentAccessToken: AccessToken
-//        ) {
-//            if (currentAccessToken == null) {
-//                profile_facebook!!.setImageResource(0)
-//                name_facebook!!.text = " "
-//                email_facebook!!.text = " "
-//            }
-//        }
-//    }
-//
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        accessTokenTracker.stopTracking()
-//    }
 }

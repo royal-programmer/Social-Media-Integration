@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.annotation.Keep
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -30,12 +31,11 @@ class LogInActivity : AppCompatActivity() {
     var sign_in_section: LinearLayout? = null
     var animation_fade_in: Animation? = null
 
-//    Connecting to google APIs
+    //    Connecting to google APIs
     var google_sign_in_option: GoogleSignInOptions? = null
     var google_sign_in_client: GoogleSignInClient? = null
-    var acc_google: GoogleSignInAccount? = null
 
-//    Connecting to facebook APIs
+    //    Connecting to facebook APIs
     var callbackManager: CallbackManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,8 +56,10 @@ class LogInActivity : AppCompatActivity() {
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
         google_sign_in_client = GoogleSignIn.getClient(this@LogInActivity, google_sign_in_option!!)
 
+//        Keep google online while logged in
+        var acc_google: GoogleSignInAccount? = null
         acc_google = GoogleSignIn.getLastSignedInAccount(this@LogInActivity)
-        if (acc_google != null){
+        if (acc_google != null) {
             startActivity(Intent(this@LogInActivity, GmailLogIn::class.java))
         }
 
@@ -67,9 +69,10 @@ class LogInActivity : AppCompatActivity() {
 //        Facebook Sign In Button and Functions
         callbackManager = CallbackManager.Factory.create()
 
-        var accessToken:AccessToken? = AccessToken.getCurrentAccessToken()
-        if (accessToken != null && !accessToken.isExpired){
-            startActivity(Intent(this@LogInActivity,FaceBookLogIn::class.java))
+//        Keep facebook online while logged in
+        var accessToken: AccessToken? = AccessToken.getCurrentAccessToken()
+        if (accessToken != null && !accessToken.isExpired) {
+            startActivity(Intent(this@LogInActivity, FaceBookLogIn::class.java))
             finish()
         }
 
@@ -78,7 +81,11 @@ class LogInActivity : AppCompatActivity() {
                 override fun onSuccess(loginResult: LoginResult?) {
                     finish()
                     startActivity(Intent(this@LogInActivity, FaceBookLogIn::class.java))
-                    Toast.makeText(applicationContext, "You logged in with Facebook", Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        applicationContext,
+                        "You logged in with Facebook",
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                 }
 
@@ -98,8 +105,10 @@ class LogInActivity : AppCompatActivity() {
         val facebook_signin_button = findViewById<Button>(R.id.facebook_signin_button)
         facebook_signin_button.setOnClickListener {
             LoginManager.getInstance().logInWithReadPermissions(
-                this@LogInActivity, listOf("public_profile","email")
-            ) }
+                this@LogInActivity,
+                listOf("public_profile", "email") // Permission required for Facebook
+            )
+        }
 
 //        Implementing Animation
         Handler(Looper.getMainLooper()).postDelayed(
@@ -110,7 +119,7 @@ class LogInActivity : AppCompatActivity() {
         )
     }
 
-//    Google Function Section
+    //    Google Function Section
     fun googleSignIn() {
         startActivityForResult(Intent(google_sign_in_client!!.signInIntent), 1000)
     }
@@ -126,7 +135,11 @@ class LogInActivity : AppCompatActivity() {
                 finish()
                 startActivity(Intent(this@LogInActivity, GmailLogIn::class.java))
                 var fetchmail = (GoogleSignIn.getLastSignedInAccount(this@LogInActivity))?.email
-                Toast.makeText(applicationContext, "You logged in with \n $fetchmail", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    applicationContext,
+                    "You logged in with \n $fetchmail",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             } catch (e: ApiException) {
                 Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT)
