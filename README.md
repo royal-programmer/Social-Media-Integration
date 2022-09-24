@@ -17,9 +17,7 @@
 
 ## 📹 Demo of the Application
 
-<p align="center">
-<iframe width="1904" height="760" src="https://www.youtube.com/embed/GMVW-ujXed4" title="Task - 5 | Social Media Integration || The Sparks Foundation - GRIP`Sept22 | Internship Project" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</p>
+![Watch the video](https://img.youtu.be/GMVW-ujXed4/default.jpg)](https://youtu.be/GMVW-ujXed4)
 
 ## 🛠 Skills
 Kotlin, Java (for reference), Xml, Git (commit and push),...
