@@ -17,7 +17,7 @@
 
 ## 📹 Demo of the Application
 
-![Watch the video](https://img.youtu.be/GMVW-ujXed4/default.jpg)](https://youtu.be/GMVW-ujXed4)
+[![Watch the video](https://img.youtu.be/GMVW-ujXed4/default.jpg)](https://youtu.be/GMVW-ujXed4)
 
 ## 🛠 Skills
 Kotlin, Java (for reference), Xml, Git (commit and push),...
